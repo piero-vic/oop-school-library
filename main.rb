@@ -32,12 +32,12 @@ end
 
 # 1 - List all books
 def list_books
-  puts @books.map { |b| "Title: #{b.title}, Author: #{b.author}" }
+  puts(@books.map { |b| "Title: #{b.title}, Author: #{b.author}" })
 end
 
 # 2 - List all people
 def list_people
-  puts @people.map { |p| "[#{p.class.name}] Name: #{p.name}, ID: #{p.id}, Age: #{p.age}" }
+  puts(@people.map { |p| "[#{p.class.name}] Name: #{p.name}, ID: #{p.id}, Age: #{p.age}" })
 end
 
 # 3 - Create a person
@@ -73,11 +73,11 @@ end
 # 5 - Create a rental
 def create_rental
   puts 'Select a book from the following list by number'
-  puts @books.map { |b, i| "#{i}) Title: #{b.title}, Author: #{b.author}" }
+  puts(@books.map { |b, i| "#{i}) Title: #{b.title}, Author: #{b.author}" })
   book_index = gets.chomp.to_i
 
   puts 'Select a person from the following list by number (not id)'
-  puts @people.map { |p, i| "#{i}) [#{p.class.name}] Name: #{p.name}, ID: #{p.id}, Age: #{p.age}" }
+  puts(@people.map { |p, i| "#{i}) [#{p.class.name}] Name: #{p.name}, ID: #{p.id}, Age: #{p.age}" })
   person_index = gets.chomp.to_i
 
   date = one_line_prompt('Date: ')
@@ -90,7 +90,7 @@ def list_rentals
   id = one_line_prompt('ID of person: ').to_i
   person = @people.filter { |p| p.id == id }.first
   puts 'Rentals:'
-  puts person.rentals.map { |r| "Date: #{r.date}, Book #{r.book.title} by #{r.book.author}" }
+  puts(person.rentals.map { |r| "Date: #{r.date}, Book #{r.book.title} by #{r.book.author}" })
 end
 
 def main

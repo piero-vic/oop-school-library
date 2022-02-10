@@ -7,6 +7,7 @@ require_relative './teacher'
 
 @people = []
 @books = []
+@rentals = []
 
 def initial_prompt
   puts <<~HEREDOC
@@ -31,12 +32,12 @@ end
 
 # 1 - List all books
 def list_books
-  puts @books.map {|b| "Title: #{b.title}, Author: #{b.author}" }
+  puts @books.map { |b| "Title: #{b.title}, Author: #{b.author}" }
 end
 
 # 2 - List all people
 def list_people
-  puts @people.map {|p| "[#{p.class.name}] Name: #{p.name}, ID: #{p.id}, Age: #{p.age}" }
+  puts @people.map { |p| "[#{p.class.name}] Name: #{p.name}, ID: #{p.id}, Age: #{p.age}" }
 end
 
 # 3 - Create a person
@@ -69,6 +70,29 @@ def create_book
   @books.push(Book.new(title, author))
 end
 
+# 5 - Create a rental
+def create_rental
+  puts 'Select a book from the following list by number'
+  puts @books.map { |b, i| "#{i}) Title: #{b.title}, Author: #{b.author}" }
+  book_index = gets.chomp.to_i
+
+  puts 'Select a person from the following list by number (not id)'
+  puts @people.map { |p, i| "#{i}) [#{p.class.name}] Name: #{p.name}, ID: #{p.id}, Age: #{p.age}" }
+  person_index = gets.chomp.to_i
+
+  date = one_line_prompt('Date: ')
+
+  @rentals.push(Rental.new(date, @people[person_index], @books[book_index]))
+end
+
+# 6 - List rentals
+def list_rentals
+  id = one_line_prompt('ID of person: ').to_i
+  person = @people.filter { |p| p.id == id }.first
+  puts 'Rentals:'
+  puts person.rentals.map { |r| "Date: #{r.date}, Book #{r.book.title} by #{r.book.author}" }
+end
+
 def main
   loop do
     x = initial_prompt
@@ -82,9 +106,9 @@ def main
     when 4
       create_book
     when 5
-      puts '5 - Create a rental'
+      create_rental
     when 6
-      puts '6 - List all rentals for a given person'
+      list_rentals
     when 7
       break
     else

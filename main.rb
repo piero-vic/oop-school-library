@@ -6,6 +6,7 @@ require_relative './student'
 require_relative './teacher'
 
 @people = []
+@books = []
 
 def initial_prompt
   puts <<~HEREDOC
@@ -28,9 +29,14 @@ def one_line_prompt(message)
   gets.chomp
 end
 
+# 1 - List all books
+def list_books
+  puts @books.map {|b| "Title: #{b.title}, Author: #{b.author}" }
+end
+
 # 2 - List all people
 def list_people
-  puts @people.map {|p| "[#{p.class.name}] Name:#{p.name}, ID:#{p.id}, Age:#{p.age} " }
+  puts @people.map {|p| "[#{p.class.name}] Name: #{p.name}, ID: #{p.id}, Age: #{p.age}" }
 end
 
 # 3 - Create a person
@@ -56,18 +62,25 @@ def create_person
   end
 end
 
+# 4 - Create a book
+def create_book
+  title = one_line_prompt('Title: ')
+  author = one_line_prompt('Author: ')
+  @books.push(Book.new(title, author))
+end
+
 def main
   loop do
     x = initial_prompt
     case x
     when 1
-      puts '1 - List all books'
+      list_books
     when 2
       list_people
     when 3
       create_person
     when 4
-      puts '4 - Create a book'
+      create_book
     when 5
       puts '5 - Create a rental'
     when 6

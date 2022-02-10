@@ -79,11 +79,11 @@ class App
   # 5 - Create a rental
   def create_rental
     puts 'Select a book from the following list by number'
-    puts(@books.map { |b, i| "#{i}) Title: #{b.title}, Author: #{b.author}" })
+    puts(@books.each_with_index.map { |b, i| "#{i}) Title: #{b.title}, Author: #{b.author}" })
     book_index = gets.chomp.to_i
 
     puts 'Select a person from the following list by number (not id)'
-    puts(@people.map { |p, i| "#{i}) [#{p.class.name}] Name: #{p.name}, ID: #{p.id}, Age: #{p.age}" })
+    puts(@people.each_with_index.map { |p, i| "#{i}) [#{p.class.name}] Name: #{p.name}, ID: #{p.id}, Age: #{p.age}" })
     person_index = gets.chomp.to_i
 
     date = one_line_prompt('Date: ')

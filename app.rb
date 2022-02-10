@@ -14,6 +14,28 @@ class App
     @rentals = []
   end
 
+  def list_objects(input)
+    case input
+    when 1
+      list_books
+    when 2
+      list_people
+    when 6
+      list_rentals
+    end
+  end
+
+  def create_object(input)
+    case input
+    when 3
+      create_person
+    when 4
+      create_book
+    when 5
+      create_rental
+    end
+  end
+
   # 1 - List all books
   def list_books
     puts(@books.map { |b| "Title: #{b.title}, Author: #{b.author}" })
@@ -80,14 +102,10 @@ class App
   def run
     puts 'Welcome to School Library App'
     loop do
-      x = main_prompt
-      list_books if x == 1
-      list_people if x == 2
-      create_person if x == 3
-      create_book if x == 4
-      create_rental if x == 5
-      list_rentals if x == 6
-      break if x == 7
+      input = main_prompt
+      list_objects(input) if [1, 2, 6].include?(input)
+      create_object(input) if [3, 4, 5].include?(input)
+      break if input == 7
     end
   end
 end

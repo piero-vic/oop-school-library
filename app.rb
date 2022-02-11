@@ -50,11 +50,6 @@ class App
   def create_person
     selection = one_line_prompt('Do you want to create a student (1) or a teacher (2)? [input the number]: ').to_i
 
-    unless [1, 2].include?(selection)
-      puts 'ERROR: Invalid option. Select 1 or 2'
-      return
-    end
-
     age = one_line_prompt('Age: ').to_i
     name = one_line_prompt('Name: ')
 
